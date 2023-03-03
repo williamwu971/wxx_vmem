@@ -112,7 +112,7 @@ __ATTR_ALLOC_SIZE__(1)
 void *
 malloc(size_t size)
 {
-    int res=write(1,"malloc\n",8);
+    ssize_t res=write(1,"malloc\n",8);
     (void)res;
 
 	if (unlikely(Destructed))
