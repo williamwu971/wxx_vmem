@@ -420,6 +420,8 @@ libvmmalloc_create(const char *dir, size_t size)
 		return NULL;
 	}
 
+    printf("reached mmap, prefaulting pointer %p of size %.2fgb\n"addr,(double)size/1024./1024./1024.);
+
 	/* store opaque info at beginning of mapped area */
 	struct vmem *vmp = addr;
 	memset(&vmp->hdr, '\0', sizeof(vmp->hdr));
