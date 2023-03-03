@@ -112,7 +112,7 @@ __ATTR_ALLOC_SIZE__(1)
 void *
 malloc(size_t size)
 {
-    printf("*****************malloc called\n");
+    write(1,"malloc\n",8);
 	if (unlikely(Destructed))
 		return NULL;
 
