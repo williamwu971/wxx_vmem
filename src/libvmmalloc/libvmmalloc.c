@@ -114,7 +114,7 @@ malloc(size_t size)
 {
 
     // xiaoxiang, print out the size without using printf
-    ssize_t res=write(1,"=== malloc ",8);
+    ssize_t res=write(1,"=== malloc ",11);
 
     size_t n = size;
     int i=0;
