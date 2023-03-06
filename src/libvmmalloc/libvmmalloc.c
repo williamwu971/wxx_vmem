@@ -113,8 +113,8 @@ void xiaoxiang_printsize(const char* func,size_t n){
     if (n<=1048576) return;
 
     if (xiaoxiang_fd==-1){
-        xiaoxiang_fd=open("/mnt/sdb/xiaoxiang/nas/NPB3.4.2/NPB3.4-OMP/bin/vmmalloc.log",O_CREAT|O_WRONLY);
-        assert(xiaoxiang_fd!=-1);
+        xiaoxiang_fd=open("/mnt/sdb/xiaoxiang/nas/NPB3.4.2/NPB3.4-OMP/bin/vmmalloc.log",O_CREAT|O_WRONLY,0666);
+        ASSERT(xiaoxiang_fd!=-1);
     }
 
     ssize_t res=1;
