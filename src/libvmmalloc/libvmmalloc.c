@@ -157,7 +157,9 @@ void xiaoxiang_print_pointer(void *ptr,size_t n) {
 
 
     // write the buffer contents to the standard output using write
-    write(1, " \n", 2);
+    res&=write(1, " \n", 2);
+
+    (void)res;
 }
 
 /*
