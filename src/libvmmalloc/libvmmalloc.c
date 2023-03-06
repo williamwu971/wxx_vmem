@@ -104,19 +104,26 @@ static int Private;
 static int Forkopt = 1; /* default behavior - remap as private */
 static bool Destructed; /* when set - ignore all calls (do not call jemalloc) */
 
+static int xiaoxiang_fd=-1;
+
 // xiaoxiang, print out the size without using printf
 void xiaoxiang_printsize(const char* func,size_t n);
 void xiaoxiang_printsize(const char* func,size_t n){
 
     if (n<=1048576) return;
 
+    if (xiaoxiang_fd==-1){
+        xiaoxiang_fd=open("/mnt/sdb/xiaoxiang/nas/NPB3.4.2/NPB3.4-OMP/bin/vmmalloc.log",O_CREAT|O_WRONLY);
+        assert(xiaoxiang_fd!=-1);
+    }
+
     ssize_t res=1;
 
     while (*func!='\0'){
-        res&=write(1,func++,1);
+        res&=write(xiaoxiang_fd,func++,1);
     }
 
-    res&=write(1," ",1);
+    res&=write(xiaoxiang_fd," ",1);
 
     int i=0;
     char buf[20];
@@ -127,9 +134,9 @@ void xiaoxiang_printsize(const char* func,size_t n){
     }
 
     while (i>0){
-        res&=write(1, &buf[--i], 1);
+        res&=write(xiaoxiang_fd, &buf[--i], 1);
     }
-    res&=write(1," \n",2);
+    res&=write(xiaoxiang_fd," \n",2);
 
     (void)res;
 }
@@ -150,14 +157,14 @@ void xiaoxiang_print_pointer(void *ptr,size_t n) {
         buf[i++] = hex_digits[p % 16];
         p /= 16;
     }
-    res&=write(1,"0x",2);
+    res&=write(xiaoxiang_fd,"0x",2);
     while (i > 0) {
-        res&=write(1, &buf[--i], 1);
+        res&=write(xiaoxiang_fd, &buf[--i], 1);
     }
 
 
     // write the buffer contents to the standard output using write
-    res&=write(1, " \n", 2);
+    res&=write(xiaoxiang_fd, " \n", 2);
 
     (void)res;
 }
