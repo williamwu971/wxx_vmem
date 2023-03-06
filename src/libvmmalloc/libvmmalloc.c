@@ -108,7 +108,7 @@ static bool Destructed; /* when set - ignore all calls (do not call jemalloc) */
 void xiaoxiang_printsize(const char* func,size_t n);
 void xiaoxiang_printsize(const char* func,size_t n){
 
-    if (n<=1024) return;
+    if (n<=1048576) return;
 
     ssize_t res=1;
 
