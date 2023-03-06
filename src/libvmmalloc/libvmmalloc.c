@@ -104,21 +104,18 @@ static int Private;
 static int Forkopt = 1; /* default behavior - remap as private */
 static bool Destructed; /* when set - ignore all calls (do not call jemalloc) */
 
-/*
- * malloc -- allocate a block of size bytes
- */
-__ATTR_MALLOC__
-__ATTR_ALLOC_SIZE__(1)
-void *
-malloc(size_t size)
-{
+// xiaoxiang, print out the size without using printf
+void xiaoxiang_printsize(char* func,size_t n){
 
-    // xiaoxiang, print out the size without using printf
-    ssize_t res=write(1,"=== malloc ",11);
+    ssize_t res=1;
 
-    size_t n = size;
+    while (*func!='\0'){
+        res&=write(1,func++,1);
+    }
+
     int i=0;
     char buf[20];
+
     while (n>0){
         buf[i++] =(char)(((char)'0')+((char)(n%10)));
         n/=10;
@@ -130,6 +127,18 @@ malloc(size_t size)
     res&=write(1,"\n",1);
 
     (void)res;
+}
+
+/*
+ * malloc -- allocate a block of size bytes
+ */
+__ATTR_MALLOC__
+__ATTR_ALLOC_SIZE__(1)
+void *
+malloc(size_t size)
+{
+
+    xiaoxiang_printsize(__FUNCTION__,size);
 
 	if (unlikely(Destructed))
 		return NULL;
