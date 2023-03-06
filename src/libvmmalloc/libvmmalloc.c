@@ -114,6 +114,8 @@ void xiaoxiang_printsize(const char* func,size_t n){
         res&=write(1,func++,1);
     }
 
+    res&=write(1," ",1);
+
     int i=0;
     char buf[20];
 
