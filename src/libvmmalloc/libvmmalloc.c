@@ -120,7 +120,7 @@ malloc(size_t size)
     int i=0;
     char buf[20];
     while (n>0){
-        buf[i++] =(char)'0'+(char)(n%10);
+        buf[i++] =(char)(((char)'0')+((char)(n%10)));
         n/=10;
     }
 
