@@ -129,9 +129,35 @@ void xiaoxiang_printsize(const char* func,size_t n){
     while (i>0){
         res&=write(1, &buf[--i], 1);
     }
-    res&=write(1,"\n",1);
+    res&=write(1," \n",2);
 
     (void)res;
+}
+
+void xiaoxiang_print_pointer(void *ptr,size_t n);
+void xiaoxiang_print_pointer(void *ptr,size_t n) {
+
+    if (n<=1048576) return;
+
+    char buf[20]; // buffer to hold the string representation of the pointer
+    char *hex_digits = "0123456789abcdef"; // hex digits to convert the pointer
+    ssize_t res=1;
+
+    // convert the pointer to a string representation in hexadecimal format
+    unsigned long long p = (unsigned long long) ptr;
+    int i = 0;
+    while (p > 0) {
+        buf[i++] = hex_digits[p % 16];
+        p /= 16;
+    }
+    res&=write(1,"0x",2);
+    while (i > 0) {
+        res&=write(1, &buf[--i], 1);
+    }
+
+
+    // write the buffer contents to the standard output using write
+    write(1, " \n", 2);
 }
 
 /*
@@ -148,13 +174,19 @@ malloc(size_t size)
 	if (unlikely(Destructed))
 		return NULL;
 
+    void* res;
+
 	if (Vmp == NULL) {
 		ASSERT(size <= HUGE);
-		return je_vmem_malloc(size);
-	}
-	LOG(4, "size %zu", size);
-	return je_vmem_pool_malloc(
-			(pool_t *)((uintptr_t)Vmp + Header_size), size);
+		res= je_vmem_malloc(size);
+	}else{
+        LOG(4, "size %zu", size);
+        res= je_vmem_pool_malloc(
+                (pool_t *)((uintptr_t)Vmp + Header_size), size);
+    }
+
+    xiaoxiang_print_pointer(res,size);
+    return res;
 }
 
 /*
