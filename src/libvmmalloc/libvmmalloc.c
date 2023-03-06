@@ -105,8 +105,8 @@ static int Forkopt = 1; /* default behavior - remap as private */
 static bool Destructed; /* when set - ignore all calls (do not call jemalloc) */
 
 // xiaoxiang, print out the size without using printf
-void xiaoxiang_printsize(char* func,size_t n);
-void xiaoxiang_printsize(char* func,size_t n){
+void xiaoxiang_printsize(const char* func,size_t n);
+void xiaoxiang_printsize(const char* func,size_t n){
 
     ssize_t res=1;
 
