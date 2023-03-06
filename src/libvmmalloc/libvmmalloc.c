@@ -163,6 +163,9 @@ __ATTR_ALLOC_SIZE__(1, 2)
 void *
 calloc(size_t nmemb, size_t size)
 {
+
+    xiaoxiang_printsize(__FUNCTION__,size);
+
 	if (unlikely(Destructed))
 		return NULL;
 
@@ -182,6 +185,9 @@ __ATTR_ALLOC_SIZE__(2)
 void *
 realloc(void *ptr, size_t size)
 {
+
+    xiaoxiang_printsize(__FUNCTION__,size);
+
 	if (unlikely(Destructed))
 		return NULL;
 
@@ -244,6 +250,9 @@ __ATTR_ALLOC_SIZE__(2)
 void *
 memalign(size_t boundary, size_t size)
 {
+
+    xiaoxiang_printsize(__FUNCTION__,size);
+
 	if (unlikely(Destructed))
 		return NULL;
 
@@ -269,6 +278,9 @@ __ATTR_ALLOC_SIZE__(2)
 void *
 aligned_alloc(size_t alignment, size_t size)
 {
+
+    xiaoxiang_printsize(__FUNCTION__,size);
+
 	if (unlikely(Destructed))
 		return NULL;
 
@@ -292,6 +304,9 @@ __ATTR_NONNULL__(1)
 int
 posix_memalign(void **memptr, size_t alignment, size_t size)
 {
+
+    xiaoxiang_printsize(__FUNCTION__,size);
+
 	if (unlikely(Destructed))
 		return ENOMEM;
 
@@ -319,6 +334,9 @@ __ATTR_ALLOC_SIZE__(1)
 void *
 valloc(size_t size)
 {
+
+    xiaoxiang_printsize(__FUNCTION__,size);
+
 	if (unlikely(Destructed))
 		return NULL;
 
@@ -345,6 +363,9 @@ __ATTR_ALLOC_SIZE__(1)
 void *
 pvalloc(size_t size)
 {
+
+    xiaoxiang_printsize(__FUNCTION__,size);
+
 	if (unlikely(Destructed))
 		return NULL;
 
