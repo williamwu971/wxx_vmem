@@ -112,8 +112,24 @@ __ATTR_ALLOC_SIZE__(1)
 void *
 malloc(size_t size)
 {
-    ssize_t res=write(1,"malloc\n",8);
+
+    // xiaoxiang, print out the size without using printf
+    ssize_t res=write(1,"=== malloc ",8);
     (void)res;
+    size_t n = size;
+    int i=0;
+    char buf[20];
+    while (n>0){
+        buf[i++] ='0'+(n%10);
+        n/=10;
+    }
+
+    while (i>0){
+        write(1, &buf[--i], 1);
+    }
+    write(1,"\n",1);
+
+
 
 	if (unlikely(Destructed))
 		return NULL;
