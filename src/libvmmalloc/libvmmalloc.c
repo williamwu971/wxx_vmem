@@ -115,21 +115,21 @@ malloc(size_t size)
 
     // xiaoxiang, print out the size without using printf
     ssize_t res=write(1,"=== malloc ",8);
-    (void)res;
+
     size_t n = size;
     int i=0;
     char buf[20];
     while (n>0){
-        buf[i++] ='0'+(n%10);
+        buf[i++] ='0'+(char)(n%10);
         n/=10;
     }
 
     while (i>0){
-        write(1, &buf[--i], 1);
+        res&=write(1, &buf[--i], 1);
     }
-    write(1,"\n",1);
+    res&=write(1,"\n",1);
 
-
+    (void)res;
 
 	if (unlikely(Destructed))
 		return NULL;
