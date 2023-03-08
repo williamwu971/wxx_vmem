@@ -111,6 +111,7 @@ static void* xiaoxiang_ptr=NULL;
 void xiaoxiang_printsize(const char* func,size_t n);
 void xiaoxiang_printsize(const char* func,size_t n){
 
+    return;
     if (!xiaoxiang_ptr||n<=1024) return;
 
     if (xiaoxiang_fd==-1){
@@ -145,6 +146,7 @@ void xiaoxiang_printsize(const char* func,size_t n){
 void xiaoxiang_print_pointer(void *ptr,size_t n);
 void xiaoxiang_print_pointer(void *ptr,size_t n) {
 
+    return;
     if (!xiaoxiang_ptr||n<=1024) return;
 
     char buf[20]; // buffer to hold the string representation of the pointer
