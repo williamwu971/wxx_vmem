@@ -105,12 +105,13 @@ static int Forkopt = 1; /* default behavior - remap as private */
 static bool Destructed; /* when set - ignore all calls (do not call jemalloc) */
 
 static int xiaoxiang_fd=-1;
+static void* xiaoxiang_ptr=NULL;
 
 // xiaoxiang, print out the size without using printf
 void xiaoxiang_printsize(const char* func,size_t n);
 void xiaoxiang_printsize(const char* func,size_t n){
 
-    if (n<=1048576) return;
+    if (!xiaoxiang_ptr||n<=1024) return;
 
     if (xiaoxiang_fd==-1){
         xiaoxiang_fd=open("/mnt/sdb/xiaoxiang/nas/NPB3.4.2/NPB3.4-OMP/bin/vmmalloc.log",O_CREAT|O_WRONLY,0666);
@@ -144,7 +145,7 @@ void xiaoxiang_printsize(const char* func,size_t n){
 void xiaoxiang_print_pointer(void *ptr,size_t n);
 void xiaoxiang_print_pointer(void *ptr,size_t n) {
 
-    if (n<=1048576) return;
+    if (!xiaoxiang_ptr||n<=1024) return;
 
     char buf[20]; // buffer to hold the string representation of the pointer
     char *hex_digits = "0123456789abcdef"; // hex digits to convert the pointer
@@ -521,6 +522,7 @@ libvmmalloc_create(const char *dir, size_t size)
             ((char*)addr)[mmap_idx]=0;
         }
     }
+    xiaoxiang_ptr=addr;
 
 
 	/* store opaque info at beginning of mapped area */
