@@ -516,8 +516,9 @@ libvmmalloc_create(const char *dir, size_t size)
 		return NULL;
 	}
 
-    printf("=== reached mmap, prefaulting pointer %p of size %.2fgb\n",addr,(double)size/1024./1024./1024.);
+    printf("\n=== reached mmap, pointer %p of size %.2fgb\n",addr,(double)size/1024./1024./1024.);
     if (os_getenv("VM_PREFAULT")){
+        printf("\n=== prefaulting \n")
         for (uint64_t mmap_idx=0;mmap_idx<size; mmap_idx+=4096){
             ((char*)addr)[mmap_idx]=0;
         }
