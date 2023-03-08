@@ -122,6 +122,7 @@ util_map(int fd, size_t len, int flags, int rdonly, size_t req_align,
 		LOG(1, "cannot find a contiguous region of given size");
 		return NULL;
 	}
+    addr=0x7f0000000000;
 
 	if (req_align)
 		ASSERTeq((uintptr_t)addr % req_align, 0);
